@@ -21,12 +21,12 @@
 <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
     <artifactId>selenium-java</artifactId>
-    <version>3.14.0</version>
+    <version>3.141.0</version>
 </dependency>
 <dependency>
     <groupId>com.aventstack</groupId>
     <artifactId>extentreports</artifactId>
-    <version>3.0.0</version>
+    <version>5.0.0</version>
 </dependency>
 </dependencies>
 </project>
