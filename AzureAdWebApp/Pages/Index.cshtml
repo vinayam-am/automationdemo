@@ -1,0 +1,47 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Azure AD Web App</h1>
+    
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Hello, @(User.Identity?.Name ?? "User")!</h4>
+            <p>You are successfully authenticated with Azure AD.</p>
+            <hr>
+            <p class="mb-0">
+                <a asp-page="/Profile" class="btn btn-primary">View Profile</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Azure AD Authentication Demo</h4>
+            <p>This application demonstrates how to implement Azure Active Directory authentication in ASP.NET Core.</p>
+            <hr>
+            <p class="mb-0">
+                <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn" class="btn btn-primary">Sign in with Azure AD</a>
+            </p>
+        </div>
+    }
+    
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <h3>Secure Authentication</h3>
+            <p>Uses Azure Active Directory for enterprise-grade security and single sign-on capabilities.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>User Profile Access</h3>
+            <p>Access user information and profile data from Azure AD after successful authentication.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Protected Resources</h3>
+            <p>Secure your application's sensitive areas with role-based access control.</p>
+        </div>
+    </div>
+</div>

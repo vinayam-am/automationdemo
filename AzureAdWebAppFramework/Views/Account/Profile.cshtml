@@ -1,0 +1,101 @@
+@using System.Security.Claims
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2><i class="fas fa-user"></i> @ViewBag.Title</h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>Profile Information</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Display Name:</dt>
+                    <dd class="col-sm-9">@ViewBag.DisplayName</dd>
+                    
+                    <dt class="col-sm-3">Email:</dt>
+                    <dd class="col-sm-9">@ViewBag.Email</dd>
+                    
+                    <dt class="col-sm-3">Object ID:</dt>
+                    <dd class="col-sm-9"><code>@ViewBag.ObjectId</code></dd>
+                    
+                    <dt class="col-sm-3">Tenant ID:</dt>
+                    <dd class="col-sm-9"><code>@ViewBag.TenantId</code></dd>
+                    
+                    <dt class="col-sm-3">Authentication Type:</dt>
+                    <dd class="col-sm-9">@User.Identity.AuthenticationType</dd>
+                    
+                    <dt class="col-sm-3">Is Authenticated:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-success">@Request.IsAuthenticated</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>All Claims</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Claim Type</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Claim claim in ViewBag.UserClaims)
+                            {
+                                <tr>
+                                    <td><small><code>@claim.Type</code></small></td>
+                                    <td><small>@claim.Value</small></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Profile Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Secure Area", "Secure", "Home", null, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Sign Out", "SignOut", "Account", null, new { @class = "btn btn-outline-danger" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6>Profile Summary</h6>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <small class="text-muted">
+                        This profile information is retrieved from Azure Active Directory claims. 
+                        The claims are automatically populated when you authenticate with Azure AD.
+                    </small>
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <strong>Total Claims:</strong> 
+                        <span class="badge bg-info">@ViewBag.UserClaims.Count</span>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

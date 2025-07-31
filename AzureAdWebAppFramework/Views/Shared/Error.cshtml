@@ -1,0 +1,80 @@
+@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Application Error</h4>
+            <p>An error occurred while processing your request.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="text-danger">Error</h1>
+        <h2 class="text-danger">An error occurred while processing your request.</h2>
+        
+        @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+        {
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4>Error Details (Debug Mode)</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Controller:</dt>
+                        <dd class="col-sm-9">@Model.ControllerName</dd>
+                        
+                        <dt class="col-sm-3">Action:</dt>
+                        <dd class="col-sm-9">@Model.ActionName</dd>
+                        
+                        <dt class="col-sm-3">Exception Type:</dt>
+                        <dd class="col-sm-9">@Model.Exception.GetType().Name</dd>
+                        
+                        <dt class="col-sm-3">Message:</dt>
+                        <dd class="col-sm-9">@Model.Exception.Message</dd>
+                    </dl>
+                    
+                    @if (Model.Exception.StackTrace != null)
+                    {
+                        <h5>Stack Trace:</h5>
+                        <pre class="bg-light p-3"><code>@Model.Exception.StackTrace</code></pre>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>What can I do?</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-arrow-left"></i> @Html.ActionLink("Go back to the home page", "Index", "Home")</li>
+                    <li><i class="fas fa-redo"></i> Try refreshing the page</li>
+                    <li><i class="fas fa-envelope"></i> Contact support if the problem persists</li>
+                </ul>
+            </div>
+        </div>
+        
+        @if (Request.IsAuthenticated)
+        {
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h6>User Information</h6>
+                </div>
+                <div class="card-body">
+                    <p><strong>User:</strong> @User.Identity.Name</p>
+                    <p><strong>Time:</strong> @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                    <p><strong>Authenticated:</strong> @Request.IsAuthenticated</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,92 @@
+@page
+@model ProfileModel
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-user"></i> User Profile</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3"><strong>Name:</strong></div>
+                        <div class="col-sm-9">@(User.Identity?.Name ?? "N/A")</div>
+                    </div>
+                    
+                    @if (User.Claims.Any(c => c.Type == "name"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Display Name:</strong></div>
+                            <div class="col-sm-9">@User.FindFirst("name")?.Value</div>
+                        </div>
+                    }
+                    
+                    @if (User.Claims.Any(c => c.Type == "preferred_username"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Username:</strong></div>
+                            <div class="col-sm-9">@User.FindFirst("preferred_username")?.Value</div>
+                        </div>
+                    }
+                    
+                    @if (User.Claims.Any(c => c.Type == "email"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Email:</strong></div>
+                            <div class="col-sm-9">@User.FindFirst("email")?.Value</div>
+                        </div>
+                    }
+                    
+                    @if (User.Claims.Any(c => c.Type == "sub"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>User ID:</strong></div>
+                            <div class="col-sm-9">@User.FindFirst("sub")?.Value</div>
+                        </div>
+                    }
+                    
+                    @if (User.Claims.Any(c => c.Type == "tid"))
+                    {
+                        <div class="row mb-3">
+                            <div class="col-sm-3"><strong>Tenant ID:</strong></div>
+                            <div class="col-sm-9">@User.FindFirst("tid")?.Value</div>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> User Claims</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Claim Type</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var claim in User.Claims.OrderBy(c => c.Type))
+                                {
+                                    <tr>
+                                        <td><code>@claim.Type</code></td>
+                                        <td>@claim.Value</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
