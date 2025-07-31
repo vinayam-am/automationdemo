@@ -1,0 +1,50 @@
+@{
+    ViewBag.Title = "About";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    <div class="col-md-8">
+        <p>This application demonstrates how to implement Azure Active Directory authentication in an ASP.NET Framework web application using OWIN middleware.</p>
+        
+        <h4>Key Features:</h4>
+        <ul>
+            <li><strong>Azure AD Integration:</strong> Uses OpenID Connect for secure authentication</li>
+            <li><strong>OWIN Middleware:</strong> Leverages OWIN for authentication pipeline</li>
+            <li><strong>Claims-Based Identity:</strong> Access user information through claims</li>
+            <li><strong>Session Management:</strong> Automatic session handling with cookies</li>
+            <li><strong>Security:</strong> Protected routes and authorization</li>
+        </ul>
+        
+        <h4>Technology Stack:</h4>
+        <ul>
+            <li>ASP.NET Framework 4.8</li>
+            <li>ASP.NET MVC 5</li>
+            <li>OWIN Middleware</li>
+            <li>Azure Active Directory</li>
+            <li>Bootstrap 5</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Authentication Status</h5>
+            </div>
+            <div class="card-body">
+                @if (Request.IsAuthenticated)
+                {
+                    <p class="text-success"><i class="fas fa-check-circle"></i> Authenticated</p>
+                    <p><strong>User:</strong> @User.Identity.Name</p>
+                    <p><strong>Auth Type:</strong> @User.Identity.AuthenticationType</p>
+                }
+                else
+                {
+                    <p class="text-warning"><i class="fas fa-exclamation-triangle"></i> Not Authenticated</p>
+                    @Html.ActionLink("Sign In", "SignIn", "Account", null, new { @class = "btn btn-primary btn-sm" })
+                }
+            </div>
+        </div>
+    </div>
+</div>

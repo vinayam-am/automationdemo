@@ -1,0 +1,85 @@
+@using System.Security.Claims
+@{
+    ViewBag.Title = "Secure Area";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-shield-alt"></i> Protected Content</h4>
+            <p>This page requires authentication to access. Only authenticated users can view this content.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>@ViewBag.Title</h2>
+        <p>Welcome to the secure area, <strong>@User.Identity.Name</strong>!</p>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>Authentication Information</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Is Authenticated:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-success">@Request.IsAuthenticated</span>
+                    </dd>
+                    
+                    <dt class="col-sm-3">Authentication Type:</dt>
+                    <dd class="col-sm-9">@User.Identity.AuthenticationType</dd>
+                    
+                    <dt class="col-sm-3">User Name:</dt>
+                    <dd class="col-sm-9">@User.Identity.Name</dd>
+                    
+                    <dt class="col-sm-3">Total Claims:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge bg-info">@ViewBag.UserClaims.Count</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    @Html.ActionLink("View Profile", "Profile", "Account", null, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Back to Home", "Index", "Home", null, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Sign Out", "SignOut", "Account", null, new { @class = "btn btn-outline-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>User Claims</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Claim Type</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Claim claim in ViewBag.UserClaims)
+                    {
+                        <tr>
+                            <td><code>@claim.Type</code></td>
+                            <td>@claim.Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

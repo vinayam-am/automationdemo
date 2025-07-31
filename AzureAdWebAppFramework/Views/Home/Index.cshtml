@@ -1,0 +1,83 @@
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded">
+            <h1 class="display-4">Welcome to Azure AD Web App</h1>
+            <p class="lead">This ASP.NET Framework application demonstrates Azure Active Directory authentication using OWIN middleware.</p>
+        </div>
+    </div>
+</div>
+
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">
+                    <i class="fas fa-check-circle"></i> Welcome back, @(User.Identity.Name ?? "User")!
+                </h4>
+                <p>You are successfully authenticated with Azure Active Directory.</p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.ActionLink("View Profile", "Profile", "Account", null, new { @class = "btn btn-primary" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.ActionLink("Access Secure Area", "Secure", "Home", null, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">
+                    <i class="fas fa-info-circle"></i> Azure AD Authentication Demo
+                </h4>
+                <p>You are currently not authenticated. Sign in with your Azure AD credentials to access protected features.</p>
+                <hr>
+                @Html.ActionLink("Sign In with Azure AD", "SignIn", "Account", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-shield-alt text-primary"></i> Secure Authentication
+                </h5>
+                <p class="card-text">Enterprise-grade security using Azure Active Directory with OpenID Connect protocol.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-user-circle text-success"></i> Single Sign-On
+                </h5>
+                <p class="card-text">Seamless authentication experience with existing organizational credentials.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-cogs text-info"></i> Claims-Based Identity
+                </h5>
+                <p class="card-text">Access rich user information and claims from Azure AD for personalization.</p>
+            </div>
+        </div>
+    </div>
+</div>
